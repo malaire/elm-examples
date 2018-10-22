@@ -10,15 +10,13 @@
   </style>
   <script src='elm.min.js'></script>
 </head><body>
-  <h1>elm-examples</h1>
-
-  <h2>Examples</h2>
-  <ul>
-    <li><a href="examples/timer/index.html">Timer</a>
-    <li><a href="examples/time-check/index.html">Time check</a>
-  </ul>
-
-  <h2>Source code</h2>
-  <a href="https://github.com/malaire/elm-examples">GitHub</a>
-
+  <a href="../../index.html">Index</a>
+  <hr>
+  
+  <div id='elm'></div>
+  <script>
+    var app = Elm.Main.init({
+      node: document.getElementById('elm')
+    });
+  </script>
 </body></html>
