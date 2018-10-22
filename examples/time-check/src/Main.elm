@@ -153,13 +153,13 @@ formatOffset offset =
         {- NOTE: sign is reversed here -}
         sign =
             if offsetInTenths > 0 then
-                "- "
+                "-"
 
             else if offsetInTenths < 0 then
-                "+ "
+                "+"
 
             else
-                "± "
+                "±"
 
         tenths =
             String.fromInt (modBy 10 (abs offsetInTenths))
@@ -167,7 +167,7 @@ formatOffset offset =
         seconds =
             String.fromInt (abs offsetInTenths // 10)
     in
-    sign ++ seconds ++ "." ++ tenths ++ " s"
+    sign ++ " " ++ seconds ++ "." ++ tenths ++ " s"
 
 
 formatTime : Maybe Time.Posix -> String
