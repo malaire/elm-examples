@@ -135,7 +135,7 @@ viewTimeQuery maybeTimeQuery =
         Just timeQuery ->
             div []
                 [ div [ css [ fontSize (pct 125), fontWeight bold ] ]
-                    [ text (" " ++ formatOffset timeQuery.offset) ]
+                    [ text (formatOffset timeQuery.offset) ]
                 , div [ css [ fontStyle italic ] ]
                     [ text ("delay " ++ String.fromInt timeQuery.roundTripDelay ++ " ms") ]
                 ]
