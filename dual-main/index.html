@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html><head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+  <title>elm-examples</title>
+  <style type='text/css'>
+    body {
+      background-color: #EEE;
+      font-family     : sans-serif;
+    }
+  </style>
+  <script src='elm.min.js'></script>
+</head><body>
+  <a href="../index.html">Index</a>
+  <hr>
+
+  <h2>Elm A</h2> 
+  <div id='elmA'></div>
+
+  <h2>Elm B</h2> 
+  <div id='elmB'></div>
+
+  <script>
+    var appA = Elm.MainA.init({
+      node: document.getElementById('elmA')
+    });
+    var appB = Elm.MainB.init({
+      node: document.getElementById('elmB')
+    });
+  </script>
+</body></html>
