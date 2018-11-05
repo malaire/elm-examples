@@ -209,21 +209,12 @@ formatIntTwoDigits number =
 
 queryServerTime : Cmd Msg
 queryServerTime =
-    Time.now
-        |> Task.andThen
-            (\clientStartTime ->
-                Http.get "https://www.markuslaire.com/ajax/TimeNowUTC.php" serverTimeDecoder
-                    |> Http.toTask
-                    |> Task.andThen
-                        (\serverTime ->
-                            Time.now
-                                |> Task.andThen
-                                    (\clientEndTime ->
-                                        createTimeQuery clientStartTime serverTime clientEndTime
-                                            |> Task.succeed
-                                    )
-                        )
-            )
+    Task.map3 createTimeQuery
+        Time.now
+        (Http.get "https://www.markuslaire.com/ajax/TimeNowUTC.php" serverTimeDecoder
+            |> Http.toTask
+        )
+        Time.now
         |> Task.attempt GotServerTime
 
 
