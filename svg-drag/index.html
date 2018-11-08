@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html><head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+  <title>elm-examples</title>
+  <style type='text/css'>
+    body {
+      background-color: #EEE;
+      font-family     : sans-serif;
+    }
+    svg {
+      position: fixed;
+      top     : 5%;
+      left    : 5%;
+      width   : 90%;
+      height  : 90%;
+    }
+  </style>
+  <script src='elm.min.js'></script>
+</head><body ondragstart="return false;" ondrop="return false;">
+  <!-- disable HTML5 drag/drop with ondragstart and ondrop, as it interferes with custom implementation -->
+  <a href="../index.html">Index</a>
+  <hr>
+  
+  <div id='elm'></div>
+  <script>
+    /* Create custom event which transforms client coordinates into svg coordinates
+     *
+     * from https://discourse.elm-lang.org/t/custom-elements-extend-svg-real-coordinates-on-mouse-events/1762
+     */
+
+    var observer = new MutationObserver(function (mutations) {
+      mutations.forEach(function (mutation) {
+        if (mutation.type === 'childList') {
+          Array
+            .from(mutation.addedNodes)
+            .filter(function (node) { 
+              return node.tagName === 'svg'; 
+            })
+            .forEach(function (node) {
+              node.addEventListener('mousemove', function (event) {
+                let svg = event.currentTarget;
+                let pt = svg.createSVGPoint()
+                pt.x = event.clientX
+                pt.y = event.clientY
+                let pos = pt.matrixTransform(svg.getScreenCTM().inverse())
+
+                svg.dispatchEvent(new CustomEvent('svgmousemove', {
+                  detail: {
+                    x: pos.x,
+                    y: pos.y,
+                  }
+                }));               
+              });
+            });
+        }
+      });
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    var app = Elm.Main.init({
+      node: document.getElementById('elm')
+    });
+  </script>
+</body></html>
