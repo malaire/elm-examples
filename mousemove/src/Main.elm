@@ -25,22 +25,24 @@ main =
 -- MODEL
 
 
-type alias MousePos =
+type alias MouseMoveData =
     { offsetX : Int
     , offsetY : Int
+    , timeStamp : Int
     }
 
 
 type alias Model =
-    { mousePos : MousePos
+    { mouseMove : MouseMoveData
     }
 
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( { mousePos =
+    ( { mouseMove =
             { offsetX = 0
             , offsetY = 0
+            , timeStamp = 0
             }
       }
     , Cmd.none
@@ -52,14 +54,14 @@ init _ =
 
 
 type Msg
-    = MouseMove MousePos
+    = MouseMove MouseMoveData
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        MouseMove newPos ->
-            ( { model | mousePos = newPos }, Cmd.none )
+        MouseMove newData ->
+            ( { model | mouseMove = newData }, Cmd.none )
 
 
 
@@ -72,14 +74,17 @@ view model =
         [ css [ C.height (C.vh 100) ]
         , on "mousemove" (JD.map MouseMove mouseMoveDecoder)
         ]
-        [ text ("offsetX: " ++ String.fromInt model.mousePos.offsetX)
+        [ text ("offsetX: " ++ String.fromInt model.mouseMove.offsetX)
         , br [] []
-        , text ("offsetY: " ++ String.fromInt model.mousePos.offsetY)
+        , text ("offsetY: " ++ String.fromInt model.mouseMove.offsetY)
+        , br [] []
+        , text ("timeStamp: " ++ String.fromInt model.mouseMove.timeStamp)
         ]
 
 
-mouseMoveDecoder : JD.Decoder MousePos
+mouseMoveDecoder : JD.Decoder MouseMoveData
 mouseMoveDecoder =
-    JD.map2 MousePos
+    JD.map3 MouseMoveData
         (JD.at [ "clientX" ] JD.int)
         (JD.at [ "clientY" ] JD.int)
+        (JD.at [ "timeStamp" ] JD.int)
