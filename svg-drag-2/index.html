@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html><head>
+  <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+  <title>elm-examples</title>
+  <style type='text/css'>
+    body {
+      background-color: #EEE;
+      font-family     : sans-serif;
+    }
+    svg {
+      position: fixed;
+      top     : 5%;
+      left    : 5%;
+      width   : 90%;
+      height  : 90%;
+    }
+  </style>
+  <script src='elm.min.js'></script>
+</head><body ondragstart="return false;" ondrop="return false;">
+  <!-- disable HTML5 drag/drop with ondragstart and ondrop, as it interferes with custom implementation -->
+  <a href="../index.html">Index</a>
+  <hr>
+  
+  <div id='elm'></div>
+  <script>
+    var app = Elm.Main.init({
+      node: document.getElementById('elm')
+    });
+
+    app.ports.requestScreenCtm.subscribe(async function(id) {
+      let svg = document.getElementById(id);
+      if (svg !== null) {
+        let ctm = svg.getScreenCTM().inverse();
+        console.log(ctm);
+        app.ports.receiveScreenCtm.send({
+          a: ctm.a, b: ctm.b, c: ctm.c, d: ctm.d, e: ctm.e, f: ctm.f
+        });
+      } else {
+        app.ports.receiveScreenCtm.send({
+          error : true
+        });        
+      }
+    });
+  </script>
+</body></html>
