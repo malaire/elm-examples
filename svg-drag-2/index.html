@@ -27,7 +27,7 @@
       node: document.getElementById('elm')
     });
 
-    app.ports.requestScreenCtm.subscribe(async function(id) {
+    app.ports.requestScreenCtm.subscribe(function(id) {
       let svg = document.getElementById(id);
       if (svg !== null) {
         let ctm = svg.getScreenCTM().inverse();
