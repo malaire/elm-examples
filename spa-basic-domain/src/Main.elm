@@ -221,7 +221,7 @@ pageHelp =
         , pre []
             [ text
                 ("<Directory /PATH/TO/DOCUMENT/ROOT>\n"
-                    ++ "Require all granted\n"
+                    ++ "  Require all granted\n"
                     ++ "  FallbackResource /index.html\n"
                     ++ "</Directory>\n"
                 )
