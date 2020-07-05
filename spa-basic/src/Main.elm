@@ -36,7 +36,7 @@ main =
 
    Current path mappings:
 
-     /github/elm-examples/index.html        => (External "/github/elm-examples/index.html")
+     /github/elm-examples                   => (External "/github/elm-examples")
      /github/elm-examples/spa-basic         => (Internal Home)
      /github/elm-examples/spa-basic/contact => (Internal Contact)
      /github/elm-examples/spa-basic/help    => (Internal Help)
@@ -67,7 +67,7 @@ routeParser =
     UP.s "github"
         </> UP.s "elm-examples"
         </> UP.oneOf
-                [ UP.map (External "/github/elm-examples/index.html") (UP.s "index.html")
+                [ UP.map (External "/github/elm-examples") UP.top
                 , UP.s "spa-basic"
                     </> UP.oneOf
                             [ UP.map (Internal Home) UP.top
@@ -191,7 +191,7 @@ view model =
 -}
 viewHeader : List (Html msg)
 viewHeader =
-    [ a [ href "/github/elm-examples/index.html" ] [ text "Index" ]
+    [ a [ href "/github/elm-examples" ] [ text "elm-examples" ]
     , hr [] []
     ]
 

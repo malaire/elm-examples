@@ -147,7 +147,7 @@ view model =
 
 viewHeader : List (Html msg)
 viewHeader =
-    [ a [ href "https://www.markuslaire.com/github/elm-examples/index.html" ] [ text "Index" ]
+    [ a [ href "https://www.markuslaire.com/github/elm-examples" ] [ text "elm-examples" ]
     , hr [] []
     ]
 
