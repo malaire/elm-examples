@@ -28,7 +28,7 @@ main =
 type alias MouseMoveData =
     { offsetX : Int
     , offsetY : Int
-    , timeStamp : Int
+    , timeStamp : Float
     }
 
 
@@ -42,7 +42,7 @@ init _ =
     ( { mouseMove =
             { offsetX = 0
             , offsetY = 0
-            , timeStamp = 0
+            , timeStamp = 0.0
             }
       }
     , Cmd.none
@@ -78,7 +78,7 @@ view model =
         , br [] []
         , text ("offsetY: " ++ String.fromInt model.mouseMove.offsetY)
         , br [] []
-        , text ("timeStamp: " ++ String.fromInt model.mouseMove.timeStamp)
+        , text ("timeStamp: " ++ String.fromFloat model.mouseMove.timeStamp)
         ]
 
 
@@ -87,4 +87,4 @@ mouseMoveDecoder =
     JD.map3 MouseMoveData
         (JD.at [ "clientX" ] JD.int)
         (JD.at [ "clientY" ] JD.int)
-        (JD.at [ "timeStamp" ] JD.int)
+        (JD.at [ "timeStamp" ] JD.float)
